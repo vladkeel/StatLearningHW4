@@ -88,9 +88,9 @@ class Node:
         if not self.right_child.leaf:
             r_split = r'X[{0}] <= {1}\n'.format(self.right_child.split_feature, self.right_child.split_value)
         l_def = r'[label="{0}entropy = {1}\nsamples = {2}\nlabel = {3}"]'.format(l_split,
-                                                                                entropy(self.left_child.target),
-                                                                                len(self.left_child.target),
-                                                                                self.left_child.label)
+                                                                                 entropy(self.left_child.target),
+                                                                                 len(self.left_child.target),
+                                                                                 self.left_child.label)
         r_def = r'[label="{0}entropy = {1}\nsamples = {2}\nlabel = {3}"]'.format(r_split,
                                                                                  entropy(self.right_child.target),
                                                                                  len(self.right_child.target),
@@ -107,13 +107,13 @@ class Node:
 def print_graph(tree):
     text = 'digraph g {\n'
     i_def = r'[label="X[{0}] <= {1}\nentropy = {2}\nsamples = {3}\nlabel = {4}"]'.format(tree.split_feature,
-                                                                                       tree.split_value,
-                                                                                       entropy(tree.target),
-                                                                                       len(tree.target),
-                                                                                       tree.label)
+                                                                                         tree.split_value,
+                                                                                         entropy(tree.target),
+                                                                                         len(tree.target),
+                                                                                         tree.label)
     text += '\t{} {}\n'.format('O', i_def)
     text += tree.print('O')
-    text +='}'
+    text += '}'
     print(text)
 
 
