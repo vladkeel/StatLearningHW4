@@ -82,16 +82,19 @@ class Node:
             return ""
         id_l = id + 'l'
         id_r = id + 'r'
-        l_def = r'[label="X[{0}] <= {1}\nentropy = {2}\nsamples = {3}\nlabel = {4}"]'.format(self.left_child.split_feature,
-                                                                                           self.left_child.split_value,
-                                                                                           entropy(self.left_child.target),
-                                                                                           len(self.left_child.target),
-                                                                                           self.left_child.label)
-        r_def = r'[label="X[{0}] <= {1}\nentropy = {2}\nsamples = {3}\nlabel = {4}"]'.format(self.right_child.split_feature,
-                                                                                           self.right_child.split_value,
-                                                                                           entropy(self.right_child.target),
-                                                                                           len(self.right_child.target),
-                                                                                           self.right_child.label)
+        l_split = r_split = ""
+        if not self.left_child.leaf:
+            l_split = r'X[{0}] <= {1}\n'.format(self.left_child.split_feature, self.left_child.split_value)
+        if not self.right_child.leaf:
+            r_split = r'X[{0}] <= {1}\n'.format(self.right_child.split_feature, self.right_child.split_value)
+        l_def = r'[label="{0}entropy = {1}\nsamples = {2}\nlabel = {3}"]'.format(l_split,
+                                                                                entropy(self.left_child.target),
+                                                                                len(self.left_child.target),
+                                                                                self.left_child.label)
+        r_def = r'[label="{0}entropy = {1}\nsamples = {2}\nlabel = {3}"]'.format(r_split,
+                                                                                 entropy(self.right_child.target),
+                                                                                 len(self.right_child.target),
+                                                                                 self.right_child.label)
         text = '\t{} {}\n'.format(id_l, l_def)
         text += '\t{} {}\n'.format(id_r, r_def)
         text += '\t{} -> {}\n'.format(id, id_l)
